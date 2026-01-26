@@ -1,5 +1,5 @@
 ---
-title: NBA Predictor
+title: app.py
 emoji: 🏀
 colorFrom: blue
 colorTo: red
