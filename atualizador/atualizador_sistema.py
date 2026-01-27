@@ -23,16 +23,16 @@ def main():
     print(f"--- INICIANDO ATUALIZAÇÃO DO SISTEMA NBA SNIPER ({time.ctime()}) ---\n")
 
     pipeline = [
-        "update_system.py",      # 1/5: Estatísticas
-        "update_injuries.py",    # 2/5: Lesões
-        "update_news.py",        # 3/5: Newsletter
-        "deploy_modelo_final.py",# 4/5: Re-treinamento
-        "previsao_diaria.py"     # 5/5: Previsões do dia
+        "app/update_system.py",      # 1/5: Estatísticas
+        "app/update_injuries.py",    # 2/5: Lesões
+        "app/update_news.py",        # 3/5: Newsletter
+        "backend/deploy_modelo_final.py",# 4/5: Re-treinamento
+        "app/previsao_diaria.py"     # 5/5: Previsões do dia
     ]
 
     for script in pipeline:
         success = run_script(script)
-        if not success and script == "update_system.py":
+        if not success and script == "funcionalidades_do_app/update_system.py":
             print("🛑 Falha crítica no primeiro passo. Abortando pipeline.")
             sys.exit(1)
 

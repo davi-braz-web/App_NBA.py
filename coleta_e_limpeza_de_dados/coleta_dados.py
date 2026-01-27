@@ -10,6 +10,7 @@ import pandas as pd
 import time
 from datetime import datetime
 import requests
+import os  # Adicionado para gerenciamento de pastas
 
 # === 1. PARÂMETROS ===
 ANO_INICIO = 2022
@@ -73,6 +74,11 @@ if tabelas:
     df_total = df_total[colunas]
     df_total['GAME_DATE'] = pd.to_datetime(df_total['GAME_DATE'])
     df_total = df_total.sort_values('GAME_DATE')
+
+    # --- AJUSTE: Criação automática da pasta data ---
+    if not os.path.exists("data"):
+        os.makedirs("data")
+        print("📁 Pasta 'data' criada com sucesso.")
 
     arquivo_saida = f"data/nba_games_{ANO_INICIO}_{ANO_ATUAL}.csv"
     df_total.to_csv(arquivo_saida, index=False)

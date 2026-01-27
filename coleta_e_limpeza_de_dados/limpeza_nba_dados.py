@@ -9,7 +9,7 @@
 import pandas as pd
 
 # === 1. LER O ARQUIVO GERADO PELA COLETA ===
-arquivo_entrada = "data/nba_games_2022_2025.csv"
+arquivo_entrada = "data/nba_games_2022_2026.csv"
 df = pd.read_csv(arquivo_entrada)
 
 print(f"✅ Arquivo carregado com {len(df):,} linhas e {len(df.columns)} colunas.")

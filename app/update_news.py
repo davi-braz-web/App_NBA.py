@@ -31,7 +31,6 @@ RSS_FEEDS = {
 # =====================================================
 
 def resumir_com_ia(titulo, texto):
-
     prompt = f"""
 Aja como analista da NBA.
 
@@ -56,40 +55,41 @@ Texto: {texto}
 # =====================================================
 
 def run_news_update():
-
     print("\n📰 Atualizando notícias com IA...\n")
 
     news_data = []
 
     for nome_site, url in RSS_FEEDS.items():
-
         print(f"-> Lendo {nome_site}")
-
         feed = feedparser.parse(url)
 
+        # Pega as 2 notícias mais recentes de cada feed
         for entry in feed.entries[:2]:
-
             conteudo = entry.get("summary", "") or entry.get("title", "")
+            
+            try:
+                resumo = resumir_com_ia(entry.title, conteudo)
+                
+                news_item = {
+                    "source": nome_site,
+                    "title": entry.title,
+                    "link": entry.link,
+                    "summary_ai": resumo,
+                    "date": datetime.now().strftime("%d/%m %H:%M")
+                }
+                news_data.append(news_item)
+                time.sleep(1) # Evita sobrecarga na API
+            except Exception as e:
+                print(f"⚠️ Erro ao resumir notícia '{entry.title}': {e}")
 
-            resumo = resumir_com_ia(entry.title, conteudo)
-
-            news_item = {
-                "source": nome_site,
-                "title": entry.title,
-                "link": entry.link,
-                "summary_ai": resumo,
-                "date": datetime.now().strftime("%d/%m %H:%M")
-            }
-
-            news_data.append(news_item)
-
-            time.sleep(5)
-
-    with open("news_db.json", "w", encoding="utf-8") as f:
-        json.dump(news_data, f, ensure_ascii=False, indent=4)
-
-    print(f"\n✅ {len(news_data)} notícias atualizadas.\n")
-
+    # === CORREÇÃO: Caminho alterado para a pasta data ===
+    if news_data:
+        caminho_arquivo = "data/noticias_nba.json"
+        with open(caminho_arquivo, "w", encoding="utf-8") as f:
+            json.dump(news_data, f, ensure_ascii=False, indent=4)
+        print(f"\n✅ Sucesso! {len(news_data)} notícias salvas em: {caminho_arquivo}")
+    else:
+        print("❌ Nenhuma notícia coletada.")
 
 if __name__ == "__main__":
     run_news_update()

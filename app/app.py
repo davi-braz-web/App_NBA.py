@@ -8,7 +8,7 @@ from datetime import datetime
 
 # --- TENTA IMPORTAR A ENGINE IA ---
 try:
-    from funcionalidades_do_app.matchups_ia import XAIEngineNBA
+    from matchups_ia import XAIEngineNBA
 except ImportError:
     XAIEngineNBA = None
 # ----------------------------------
@@ -372,9 +372,9 @@ with tab2:
 # ABA 3: NEWSLETTER
 with tab3:
     st.header("🗞️ Notícias da NBA")
-    if os.path.exists("data/news_db.json"):
+    if os.path.exists("data/noticias_nba.json"):
         try:
-            with open("data/news_db.json", "r", encoding='utf-8') as f:
+            with open("data/noticias_nba.json", "r", encoding='utf-8') as f:
                 news = json.load(f)
             for item in news:
                 st.markdown(f"""<div class="news-card">
@@ -404,3 +404,6 @@ with tab4:
             else: st.success("Nenhuma lesão registrada.")
         except Exception as e: st.error(f"Erro: {e}")
     else: st.warning("Arquivo de lesões não encontrado.")
+    # Para ativar use no seu terminal o comando: streamlit run app/app.py
+    # O código atualizador do sistema roda todos os códigos de atualização
+     
