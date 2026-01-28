@@ -9,11 +9,11 @@ import time
 # =====================================================
 # GEMINI — CHAVE 1 (NOTÍCIAS)
 # =====================================================
-load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY_1")
+load_dotenv(override=True)
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY_1_NEWS")
 
 if not GEMINI_API_KEY:
-    raise RuntimeError("GEMINI_API_KEY_1 não encontrada no ambiente.")
+    raise RuntimeError("GEMINI_API_KEY_1_NEWS não encontrada no ambiente.")
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 

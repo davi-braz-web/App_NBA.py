@@ -10,11 +10,11 @@ from google import genai
 # =====================================================
 # CONFIGURAÇÃO INICIAL
 # =====================================================
-load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY_2")
+load_dotenv(override=True)
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY_2_IA")
 
 if not GEMINI_API_KEY:
-    raise RuntimeError("GEMINI_API_KEY_2 não encontrada no ambiente.")
+    raise RuntimeError("GEMINI_API_KEY_2_IA não encontrada no ambiente.")
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
